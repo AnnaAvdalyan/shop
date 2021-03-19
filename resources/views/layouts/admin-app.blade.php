@@ -16,7 +16,9 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/css/dashlite.css?ver=2.2.0') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/css/editors/tinymce.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/css/theme.css?ver=2.2.0') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 <body class="@yield('bodyClass')">
 <div class="nk-app-root">
@@ -49,6 +51,12 @@
                                     <span class="nk-menu-text">Default Dashboard</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item">
+                                <a href="{{ route('galleries.index') }}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-dashlite"></em></span>
+                                    <span class="nk-menu-text"> Gelley</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item has-sub">
                                 <a href="/admin/allUsers" class="nk-menu-link ">
                                     <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
@@ -58,7 +66,7 @@
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item has-sub">
                                 <a href="#" class="nk-menu-link nk-menu-toggle">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-file-movie"></em></span>
+                                    <span class="nk-menu-icon"><em class="icon ni ni-grid-add-c"></em></span>
                                     <span class="nk-menu-text">Категории   </span>
                                 </a>
                                 <ul class="nk-menu-sub">
@@ -75,17 +83,17 @@
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item has-sub">
                                 <a href="#" class="nk-menu-link nk-menu-toggle">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-file-movie"></em></span>
-                                    <span class="nk-menu-text">Актёры </span>
+                                    <span class="nk-menu-icon"><em class="icon ni ni-pen2"></em></span>
+                                    <span class="nk-menu-text">Продукт  </span>
                                 </a>
                                 <ul class="nk-menu-sub">
                                     <li class="nk-menu-item">
-                                        <a href="/admin/addActor" class="nk-menu-link"><span
-                                                class="nk-menu-text">Добавить актера </span></a>
+                                        <a href="{{ route('products.create') }}" class="nk-menu-link"><span
+                                                class="nk-menu-text">Добавить продукт </span></a>
                                     </li>
                                     <li class="nk-menu-item">
-                                        <a href="/admin/allActor" class="nk-menu-link"><span
-                                                class="nk-menu-text">Все актеры </span></a>
+                                        <a href="{{ route('products.index') }}" class="nk-menu-link"><span
+                                                class="nk-menu-text">Все продукты </span></a>
                                     </li>
                                 </ul><!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->
@@ -316,13 +324,13 @@
 {{--<script src="./assets/js/bundle.js?ver=2.2.0"></script>--}}
 {{--<script src="./assets/js/scripts.js?ver=2.2.0"></script>--}}
 {{--<script src="./assets/js/libs/editors/tinymce.js?ver=2.2.0"></script>--}}
-{{--<script src="./assets/js/editors.js?ver=2.2.0"></script>--}}
-{{--<script src="{{ asset('admin/assets/js/bundle.js?ver=2.2.0') }}"></script>--}}
-{{--<script src="{{ asset('admin/assets/js/scripts.js?ver=2.2.0') }}"></script>--}}
-{{--<script src="{{ asset('admin/assets/js/libs/editors/tinymce.js?ver=2.2.0') }}"></script>--}}
-{{--<script src="{{ asset('admin/assets/js/editors.js?ver=2.2.0') }}"></script>--}}
-{{--<script src="{{ asset('admin/assets/js/bundle.js?ver=2.2.0') }}"></script>--}}
-{{--<script src="{{ asset('admin/assets/js/bundle.js?ver=2.2.0') }}"></script>--}}
-{{--<script src="{{ asset('assets/js/script.js?ver=2.2.0') }}"></script>--}}
+<script src="{{ asset('assets/js/main.js') }}"></script>
+<script src="{{ asset('admin/assets/js/bundle.js?ver=2.2.0') }}"></script>
+<script src="{{ asset('admin/assets/js/scripts.js?ver=2.2.0') }}"></script>
+<script src="{{ asset('admin/assets/js/libs/editors/tinymce.js?ver=2.2.0') }}"></script>
+<script src="{{ asset('admin/assets/js/editors.js?ver=2.2.0') }}"></script>
+<script src="{{ asset('admin/assets/js/bundle.js?ver=2.2.0') }}"></script>
+<script src="{{ asset('admin/assets/js/bundle.js?ver=2.2.0') }}"></script>
+<script src="{{ asset('assets/js/script.js?ver=2.2.0') }}"></script>
 </body>
 </html>

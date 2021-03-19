@@ -1,6 +1,8 @@
 @extends('layouts.admin-app')
 
 @section('admin-content')
+{{--    @dd($editCategory);--}}
+
     <div class="nk-content ">
         <div class="container-fluid">
             <div class="nk-content-inner">
@@ -34,20 +36,22 @@
                                         Добавить
                                     @endif категорию</h3>
                                 <form
-                                    action="{{ route('categories.store') }}"
-                                    {{--@if(isset($editCategory))  {{ '/admin/addCategory/edit/'. $editCategory->id .'/check' }}    @else --}}
+                                    action="@if(isset($editCategory))  {{ route('categories.update' ,$editCategory) }}    @else {{ route('categories.store') }} @endif"
 
-                                    {{--                                    @endif --}}
 
                                     method="POST">
                                     @csrf
+                                    @if(isset($editCategory))
+                                        @method('PUT')
+                                    @endif
+
                                     <div class="form-group">
                                         <label class="form-label" for="default-01">
                                             Category</label>
                                         <div class="form-control-wrap">
                                             <input type="text" class="form-control" id="default-01"
                                                    placeholder="Category" name="name"
-                                                   @if(isset($editCategory)) value="{{ $editCategory->cat_name }}" @endif>
+                                                   @if(isset($editCategory)) value="{{ $editCategory->name }}" @endif>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -80,13 +84,15 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleFormControlInput5" class="form-label">Images</label>
-                                        <input type="file" class="form-control" id="exampleFormControlInput5"
-                                               name="img">
+                                        @if(isset($editCategory))
+                                            <input type="hidden" class="form-control" id="exampleFormControlInput5"
+                                                   value="{{ $editCategory->img }}"
+                                                   name="img">
+                                        @else:
+                                            <label for="exampleFormControlInput5" class="form-label">Images</label>
+                                            <input type="file" class="form-control" id="exampleFormControlInput5" name="img">
+                                        @endif
                                     </div>
-                                    @if(isset($editCategory))
-                                        <input type="hidden" name="id" value="{{ $editCategory->id }}">
-                                    @endif
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-lg btn-primary">Add</button>
                                     </div>

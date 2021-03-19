@@ -1,8 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\GelleryController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\BasketController;
 use App\Http\Controllers\Admin\CategoryController1;
+use App\Http\Controllers\HomeController;
+//use App\Models\Gallery;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -15,36 +20,37 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
-Auth::routes();
+Route::get('/', [ HomeController::class, 'index'])->name('home');
+//Route::get('/home', [ HomeController::class, 'index'])->name('home');
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/order/place', [BasketController::class, 'basketConfirm'])->name('basketConfirm');
-Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+Route::get('/index', [HomeController::class, 'index'])->name('index');
+Route::get('/category/{name}', [HomeController::class, 'category'])->name('category');
+//Route::get('/{name}', [HomeController::class, 'product'])->name('product');
 Route::get('/basket', [BasketController::class, 'basket'])->name('basket');
 Route::post('/basket/add/{id}',[BasketController::class,'basketAdd'])->name('basketAdd');
 Route::post('/basket/remove/{id}',[BasketController::class,'basketRemove'])->name('basketRemove');
 Route::get('/order', [BasketController::class, 'basketPlace'])->name('order');
-
+Route::get('/ajax/test',[HomeController::class,'ajax'])->name('ajaxTest');
 
 
 Route::middleware(['adminchek'])->group(function() {
     Route::get('/test/test', [CategoryController1::class,'test'])->name('test');
     Route::get('/admin/dashbord', [CategoryController1::class,'dashbord'])->name('dashbord');
-//    Route::get('/admin/categories/add', [App\Http\Controllers\Admin\CategoryController1::class,'add'])->name('categoriesAdd');
-//    Route::post('/admin/categories/add/check', [App\Http\Controllers\Admin\CategoryController1::class,'addCheck'])->name('addCategoriesCheck');
-//
-//    Route::get('/admin/products/add', [App\Http\Controllers\Admin\ProductController::class,'add'])->name('productAdd');
-//    Route::post('/admin/products/add/check', [App\Http\Controllers\Admin\ProductController::class,'addCheck'])->name('AddProductCheck');
 
     Route::resource('categories',CategoryController::class);
-
+    Route::resource('products',ProductController::class);
+    Route::resource('galleries',GelleryController::class);
+    Route::post('admin/categories/add', [AjaxController::class,'addCategory'])->name('addCategory');
+    Route::post('product/addGallery',[ProductController::class,'addGallery'])->name('productAddCategory');
 });
 
 
-Route::get('/{category}/{product}', [App\Http\Controllers\HomeController::class, 'product'])->name('product');
+//Route::get('/{category}/{product}', [HomeController::class, 'product'])->name('product');
+Auth::routes();
 
 

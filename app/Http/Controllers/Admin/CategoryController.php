@@ -16,8 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-$categories = Category::all();
-      return  view('admin.categories.allCategories',compact('categories'));
+        $categories = Category::all();
+        return view('admin.categories.allCategories', compact('categories'));
     }
 
     /**
@@ -28,14 +28,14 @@ $categories = Category::all();
     public function create()
     {
         $categories = Category::all();
-        return  view('admin.categories.addCategories',compact('categories'));
+        return view('admin.categories.addCategories', compact('categories'));
 
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(categoryRequest $request)
@@ -57,7 +57,7 @@ $categories = Category::all();
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function show(Category $category)
@@ -68,35 +68,43 @@ $categories = Category::all();
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category)
     {
-        dd('test');
+        $categories = Category::all();
+        $editCategory = $category;
+//        dd($editCategory);
+        return view('admin.categories.addCategories', compact('categories', 'editCategory'));
+
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(categoryRequest $request, Category $category)
     {
-        //
+        $file = customHasFiles([
+            "categories/" => $request->hasFile('img') ? $request->img : 'default.png',
+        ]);
+        $category->update($request->all());
+        return redirect()->route('categories.index')->with('success', 'Product successfully update.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category)
     {
-        dd('adas');
+//        dd('adas');
         $category->delete();
         return redirect()->route('categories.index')->with('success', 'Product successfully deleted.');
 

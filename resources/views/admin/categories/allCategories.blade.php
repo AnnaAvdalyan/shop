@@ -30,7 +30,7 @@
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="nk-block-tools-opt"><a href="#" class="btn btn-primary"><em class="icon ni ni-plus"></em><span>Add Project</span></a></li>
+                                            <li class="nk-block-tools-opt"><a href="#" class="btn btn-primary open__modal" data-modal="addCategory"><em class="icon ni ni-plus"></em><span>Add Project</span></a></li>
                                         </ul>
                                     </div>
                                 </div><!-- .toggle-wrap -->
@@ -90,7 +90,7 @@
                                                             </div>
                                                         </td>
                                                         <td class="nk-tb-col">
-                                                            <a href="html/apps-kanban.html" class="project-title">
+                                                            <a href="#" class="project-title">
                                                                 <div class="user-avatar sq bg-purple"><img src="{{ asset($category->img) }}" alt=""></div>
                                                                 <div class="project-info">
                                                                     <h6 class="title">{{ $category->name }}</h6>
@@ -103,12 +103,6 @@
                                                         <td class="nk-tb-col tb-col-lg">
                                                             <span> {{ $category->name_arm }}</span>
                                                         </td>
-                                                        <td class="nk-tb-col tb-col-lg">
-                                                            <form action="{{  route('categories.destroy', $category->id)}}" method="post">
-                                                                @csrf
-                                                                <buttom type="submit" ><em class="icon ni ni-trash"></em><span>Удалить </span></buttom>
-                                                            </form>
-                                                        </td>
                                                         <td class="nk-tb-col nk-tb-col-tools">
                                                             <ul class="nk-tb-actions gx-1">
                                                                 <li>
@@ -118,6 +112,11 @@
                                                                             <ul class="link-list-opt no-bdr">
                                                                                 <li><a href="{{ route('categories.edit', $category->id) }}"><em class="icon ni ni-edit"></em><span>Редактировать</span></a></li>
                                                                                 <li>
+                                                                                    <form action="{{  route('categories.destroy', $category ) }}" method="post">
+                                                                                        @csrf
+                                                                                        @method('DELETE')
+                                                                                        <button type="submit" class="btn" ><em class="icon ni ni-trash"></em><span>Удалить </span></button>
+                                                                                    </form>
                                                                                   </li>
                                                                             </ul>
                                                                         </div>
@@ -182,6 +181,26 @@
                     </div><!-- .nk-block -->
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="modal" id="addCategory">
+        <div class="modal__container modal__form">
+            <form action="{{ route('addCategory') }}" class="addCategory">
+                @csrf
+                <h2 class="title">Add Category</h2>
+                <div class="group bg-grey group-py-5">
+                    <input type="text" name="name" placeholder="Name">
+                </div>
+                <div class="group bg-grey group-py-5">
+                    <input type="text" name="name_ru" placeholder="Name_ru">
+                </div>
+                <div class="group bg-grey group-py-5">
+                    <input type="text" name="name_arm" placeholder="Name_arm">
+                </div>
+                <div class="group bg-grey group-py-5">
+                    <button type="submit">Отправить</button>
+                </div>
+            </form>
         </div>
     </div>
 @endsection

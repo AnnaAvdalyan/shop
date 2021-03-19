@@ -23,4 +23,8 @@ class Product extends Model
             return $this->price;
         }
     }
+
+    public function galleries(){
+        return $this->belongsToMany(Gallery::class);
+    }
 }

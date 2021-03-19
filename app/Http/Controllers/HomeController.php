@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     /**
@@ -25,11 +26,27 @@ class HomeController extends Controller
     public function index()
     {
         $products = Product::get();
-        return view('index',compact('products'));
+        $categories = Category::get();
+        return view('index',compact('products','categories'));
     }
-    public function product()
+    public function category($name)
     {
-//        $products = Product::get();
-//        return view('index',compact('products'));
+        $category  = Category::where('name',$name)->first();
+//        $products = Product::where('category_id',$category_id->id)->get();
+        $categories = Category::get();
+
+        return view('category/index',compact('category','categories'));
+    }
+    public function product($product_name){
+        $product = Product::where('title',$product_name)->first();
+        $categories = Category::get();
+        $products = Product::get();
+        return view('single',compact('product','categories','products'));
+//        dd($product);
+    }
+
+    public function ajax(){
+        $products = Product::all();
+        return response()->json($products);
     }
 }
